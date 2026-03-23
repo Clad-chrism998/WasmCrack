@@ -1,0 +1,122 @@
+pub struct CryptoSignature {
+    pub name: &'static str,
+    pub byte_pattern: &'static [u8],
+}
+
+pub const KNOWN_SIGNATURES: &[CryptoSignature] = &[
+    // Block ciphers
+    CryptoSignature {
+        name: "AES S-Box",
+        byte_pattern: &[0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5],
+    },
+    CryptoSignature {
+        name: "AES Inverse S-Box",
+        byte_pattern: &[0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38],
+    },
+    CryptoSignature {
+        name: "Blowfish P-Array",
+        byte_pattern: &[0x24, 0x3f, 0x6a, 0x88, 0x85, 0xa3, 0x08, 0xd3],
+    },
+    CryptoSignature {
+        name: "Camellia S-Box (S1)",
+        byte_pattern: &[0x70, 0x82, 0x2c, 0xec, 0xb3, 0xef, 0xac, 0xe4],
+    },
+    CryptoSignature {
+        name: "SM4 S-Box (Chinese Standard)",
+        byte_pattern: &[0xd6, 0x90, 0xe9, 0xfe, 0xcc, 0xe1, 0x3d, 0xb7],
+    },
+    CryptoSignature {
+        name: "Twofish q0 permutation",
+        byte_pattern: &[0xa9, 0x67, 0xb3, 0xe8, 0x04, 0xfd, 0xa3, 0x76],
+    },
+    CryptoSignature {
+        name: "CAST-128 S-Box (S1)",
+        byte_pattern: &[0x30, 0xfb, 0x40, 0xd4, 0x9f, 0xa0, 0xff, 0x0b],
+    },
+    CryptoSignature {
+        name: "SEED S-Box (S1)",
+        byte_pattern: &[0x29, 0x89, 0xa1, 0xa8, 0x22, 0x66, 0x2d, 0xc1],
+    },
+    CryptoSignature {
+        name: "Kuznyechik S-Box (Pi)",
+        byte_pattern: &[0xfc, 0xee, 0xdd, 0x11, 0xcf, 0x6e, 0x31, 0x16],
+    },
+    CryptoSignature {
+        name: "Streebog S-Box",
+        byte_pattern: &[0x01, 0x5a, 0x45, 0x73, 0xe2, 0xcb, 0x3a, 0xb8],
+    },
+
+    // Hashers
+    CryptoSignature {
+        name: "SHA-256 Initialization Constants (H0-H7)",
+        byte_pattern: &[0x6a, 0x09, 0xe6, 0x67, 0xbb, 0x67, 0xae, 0x85],
+    },
+    CryptoSignature {
+        name: "SHA-256 Round Constants (K)",
+        byte_pattern: &[0x42, 0x8a, 0x2f, 0x98, 0x71, 0x37, 0x44, 0x91],
+    },
+    CryptoSignature {
+        name: "SHA-512 / BLAKE2b Initialization Constants",
+        byte_pattern: &[0x6a, 0x09, 0xe6, 0x67, 0xf3, 0xbc, 0xc9, 0x08],
+    },
+    CryptoSignature {
+        name: "SHA-512 Round Constants (K0)",
+        byte_pattern: &[0x42, 0x8a, 0x2f, 0x98, 0xd7, 0x28, 0xae, 0x22],
+    },
+    CryptoSignature {
+        name: "SHA-1 / RIPEMD-160 Initialization Constants",
+        byte_pattern: &[0x67, 0x45, 0x23, 0x01, 0xef, 0xcd, 0xab, 0x89],
+    },
+    CryptoSignature {
+        name: "SHA-1 Round Constants (K)",
+        byte_pattern: &[0x5a, 0x82, 0x79, 0x99, 0x6e, 0xd9, 0xeb, 0xa1],
+    },
+    CryptoSignature {
+        name: "MD5 T-Table Constants",
+        byte_pattern: &[0xd7, 0x6a, 0xa4, 0x78, 0xe8, 0xc7, 0xb7, 0x56],
+    },
+    CryptoSignature {
+        name: "Whirlpool S-Box",
+        byte_pattern: &[0x18, 0x23, 0xc6, 0xe8, 0x87, 0xb8, 0x01, 0x4f],
+    },
+    CryptoSignature {
+        name: "SM3 Initialization Vector",
+        byte_pattern: &[0x73, 0x80, 0x16, 0x6f, 0x49, 0x14, 0xb2, 0xb9],
+    },
+    CryptoSignature {
+        name: "CRC64-ECMA Polynomial",
+        byte_pattern: &[0x42, 0xf0, 0xe1, 0xeb, 0xa9, 0xea, 0x36, 0x93],
+    },
+
+    // Stream ciphers, MACs, & misc
+    CryptoSignature {
+        name: "ChaCha20 / Salsa20 'expand 32-byte k'",
+        byte_pattern: &[0x65, 0x78, 0x70, 0x61, 0x6e, 0x64, 0x20, 0x33],
+    },
+    CryptoSignature {
+        name: "ChaCha20 / Salsa20 'expand 16-byte k'",
+        byte_pattern: &[0x65, 0x78, 0x70, 0x61, 0x6e, 0x64, 0x20, 0x31],
+    },
+    CryptoSignature {
+        name: "Bcrypt Magic String ('OrpheanB')",
+        byte_pattern: &[0x4f, 0x72, 0x70, 0x68, 0x65, 0x61, 0x6e, 0x42],
+    },
+    CryptoSignature {
+        name: "SipHash Magic String ('somepseu')",
+        byte_pattern: &[0x73, 0x6f, 0x6d, 0x65, 0x70, 0x73, 0x65, 0x75],
+    },
+    CryptoSignature {
+        name: "SipHash Magic String ('dorandom')",
+        byte_pattern: &[0x64, 0x6f, 0x72, 0x61, 0x6e, 0x64, 0x6f, 0x6d],
+    },
+
+    // Elliptic curves
+    CryptoSignature {
+        name: "Ed25519 d Value",
+        byte_pattern: &[0xa3, 0x78, 0x59, 0x13, 0xca, 0x4d, 0xeb, 0x75],
+    },
+    CryptoSignature {
+        name: "Secp256k1 Base Point G (Uncompressed)",
+        byte_pattern: &[0x04, 0x79, 0xbe, 0x66, 0x7e, 0xf9, 0xdc, 0xbb],
+    },
+];
