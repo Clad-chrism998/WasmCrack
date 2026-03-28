@@ -1621,7 +1621,7 @@ impl Converter {
                                     I32_TRUNC_SAT_F32_U | I32_TRUNC_SAT_F64_U => "trunc_sat_i32_u",
                                     I64_TRUNC_SAT_F32_S | I64_TRUNC_SAT_F64_S => "trunc_sat_i64_s",
                                     I64_TRUNC_SAT_F32_U | I64_TRUNC_SAT_F64_U => "trunc_sat_i64_u",
-                                    _ => panic!("Unhandled PREFIX_FC sub-opcode: {:#04x} at byte offset {:#x}.", sub_opcode, reader.addr - 1),
+                                    _ => panic!("Unhandled PREFIX_FC sub-opcode: {:#04x}.", sub_opcode),
                                 };
                                 let params = self.use_stack(1);
                                 self.stack.push(params[0].simplify_data_type(opcode_helper, &format!("{}({{0}})", opcode_helper), &mut i32_consts, &mut i64_consts));
