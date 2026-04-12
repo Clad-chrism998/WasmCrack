@@ -55,22 +55,18 @@ WasmCrack currently supports the following automated analysis utilities:
 
 The following utilities are planned for future releases to expand WasmCrack into a full dynamic and static analysis suite:
 
-### Features Guaranteed for Implementation (in the near future)
+### Features Guaranteed for Implementation (at some point when I have time)
 
 * **`entropy-analyzer (add-on to data-magic)`**: Statically analyzes any data section blocks in windows to detect regions of high entropy. It will apply general statistical analysis formulas for detecting entropy (e.g. Shannon Entropy) in order to do so. High entropy regions may indicate a cryptographic block.
 
-* **`func-hook`**: Dynamic instrumentation. Generates a modified version of the target WebAssembly binary, injecting a custom import call into *every* function. This hook will capture and export caller info, parameter values, and global states at runtime.
-
-* **`hash-structure-solver (add-on to struct-solver)`**: Like the struct-solver, the hash-structure-solver will attempt to identify general structures. However, where the struct-solver only locates contiguous structures (thus the only general structures allowed for are vector/struct location), the hash-structure-solver will use more advanced analysis to identify potential HashMap/HashSet structures. It will do this by first attempting to locate the bucket array (which it will do as a check directly within struct-solver's vector/array analysis). From here, ptrs from the bucket list will be followed. The ptrs should all lead to same size heap objects if the structure is that of a hash structure. 
-
-### Proposed Additions (will likely be implemented if I find the time to)
+* **`hash-structure-solver (add-on to struct-solver)`**: Like the struct-solver, the hash-structure-solver will attempt to identify general structures. However, where the struct-solver only locates contiguous structures (thus the only general structures allowed for are vector/struct location), the hash-structure-solver will use more advanced analysis to identify potential HashMap/HashSet structures. It will do this by first attempting to locate the bucket array (which it will do as a check directly within struct-solver's vector/array analysis). From here, ptrs from the bucket list will be followed. The ptrs should all lead to same size heap objects if the structure is that of a hash structure.
 
 * **`local-trace`**: Pinpoint tracing. Specify a Wasm function and a specific local variable, and WasmCrack will map exactly how that local is mutated throughout the function's execution.
-  
+
 * **`mem-trace`**: Memory address monitoring. Specify linear memory addresses to trace how and where those locations are accessed or modified across all functions in the binary.
 
 * **`ctrl-trace`**: Advanced control flow analysis. Will trace complex, heavily nested block structures to analyze and output all possible branch possibilities within a given control structure.
-  
-* **`trace-indirect`**: `call_indirect` deobfuscation. Since indirect calls are frequently used to obfuscate Wasm control flow, this tool tackles them in two passes:
-    1. **Static:** Analyzes the binary to deduce table index values used in indirect calls.
-    2. **Dynamic:** If static analysis fails, it automatically patches the Wasm binary with an import hook that intercepts indirect calls at runtime, guaranteeing table value resolution.
+
+### Proposed Additions (will likely be implemented if I find the time to)
+
+NONE. Feel free to suggest anything.
