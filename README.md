@@ -61,6 +61,10 @@ The following utilities are planned for future releases:
 
 * **`hash-structure-solver (add-on to struct-solver)`**: Like the struct-solver, the hash-structure-solver will attempt to identify general structures. However, where the struct-solver only locates contiguous structures (thus the only general structures allowed for are vector/struct location), the hash-structure-solver will use more advanced analysis to identify potential HashMap/HashSet structures. It will do this by first attempting to locate the bucket array (which it will do as a check directly within struct-solver's vector/array analysis). From here, ptrs from the bucket list will be followed. The ptrs should all lead to same size heap objects if the structure is that of a hash structure.
 
+
+The Following featurues will NOT be automatically run as the rest of the tools are, as these will require specific specification. Likely during this time implementation to only run specific tools and analyze only specific funcs (if applicable to said tool), will be added.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 * **`local-trace`**: Pinpoint tracing. Specify a Wasm function and a specific local variable, and WasmCrack will map exactly how that local is mutated throughout the function's execution.
 
 * **`mem-trace`**: Memory address monitoring. Specify linear memory addresses to trace how and where those locations are accessed or modified across all functions in the binary.
